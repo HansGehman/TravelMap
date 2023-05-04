@@ -1,40 +1,242 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
 
     <!-- Mapbox GL JS -->
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
 
     <title>Travel Map</title>
   </head>
   <body>
-    <div class = " row justify-content-center">
-        <div class = "text-center m-4">
-            <h1 class = "display-1">World Exploration</h1>
-          </div>
-    <div id='map' style='width: 90vw; height: 90vh;'></div>
-    <script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoiY2FwdGFpbmZsdWZmIiwiYSI6ImNrbm05bW9obDBva3Qyb20wZHV2NGUwbHQifQ.jkQHN977Ux0xoNwTLaNHvw';
-    const map = new mapboxgl.Map({
-        container: 'map', // container ID
-        style: 'mapbox://styles/mapbox/streets-v12', // style URL
-        center: [-89.4926, 40.5275], // starting position [lng, lat]
-        zoom: 2, // starting zoom
-    });
-    </script>
+    <!-- Styling for the markers -->
+    <style>
+      .marker {
+        background-image: url('./images/CAShield.png');
+        display: block;
+        border: none;
+        border-radius: 50%;
+        padding: 0;
+      }
+    </style>
+
+    <div class="row justify-content-center">
+      <div class="text-center m-4">
+        <h1 class="display-1">World Exploration</h1>
+      </div>
+
+      <!-- Buttons -->
+      <div style="width: 90vw">
+        <div class=" text-center btn-group-sm" >
+          <button type="button" class="btn btn-dark m-1" id="albania">Albania</button>
+          <button type="button" class="btn btn-dark m-1" id="belize">Belize</button>
+          <button type="button" class="btn btn-dark m-1" id="canada">Canada</button>
+          <button type="button" class="btn btn-dark m-1" id="costaRica">Costa Rica</button>
+          <button type="button" class="btn btn-dark m-1" id="cyprus">Cyprus</button>
+          <button type="button" class="btn btn-dark m-1" id="dRC">DRC</button>
+          <button type="button" class="btn btn-dark m-1" id="equador">Equador</button>
+          <button type="button" class="btn btn-dark m-1" id="egypt">Egypt</button>
+          <button type="button" class="btn btn-dark m-1" id="elSalvador">El Salvador</button>
+          <button type="button" class="btn btn-dark m-1" id="estonia">Estonia</button>
+          <button type="button" class="btn btn-dark m-1" id="finland">Finland</button>
+          <button type="button" class="btn btn-dark m-1" id="france">France</button>
+          <button type="button" class="btn btn-dark m-1" id="germany">Germany</button>
+          <button type="button" class="btn btn-dark m-1" id="greece">Greece</button>
+          <button type="button" class="btn btn-dark m-1" id="guatemala">Guatemala</button>
+          <button type="button" class="btn btn-dark m-1" id="haiti">Haiti</button>
+          <button type="button" class="btn btn-dark m-1" id="honduras">Honduras</button>
+          <button type="button" class="btn btn-dark m-1" id="india">India</button>
+          <button type="button" class="btn btn-dark m-1" id="ireland">Ireland</button>
+          <button type="button" class="btn btn-dark m-1" id="israel">Israel</button>
+          <button type="button" class="btn btn-dark m-1" id="italy">Italy</button>
+          <button type="button" class="btn btn-dark m-1" id="japan">Japan</button>
+          <button type="button" class="btn btn-dark m-1" id="jordan">Jordan</button>
+          <button type="button" class="btn btn-dark m-1" id="latvia">Latvia</button>
+          <button type="button" class="btn btn-dark m-1" id="mexico">Mexico</button>
+          <button type="button" class="btn btn-dark m-1" id="morocco">Morocco</button>
+          <button type="button" class="btn btn-dark m-1" id="netherlands">Netherlands</button>
+          <button type="button" class="btn btn-dark m-1" id="nicaragua">Nicaragua</button>
+          <button type="button" class="btn btn-dark m-1" id="panama">Panama</button>
+          <button type="button" class="btn btn-dark m-1" id="philippines">Philippines</button>
+          <button type="button" class="btn btn-dark m-1" id="poland">Poland</button>
+          <button type="button" class="btn btn-dark m-1" id="southKorea">South Korea</button>
+          <button type="button" class="btn btn-dark m-1" id="spain">Spain</button>
+          <button type="button" class="btn btn-dark m-1" id="taiwan">Taiwan</button>
+          <button type="button" class="btn btn-dark m-1" id="thailand">Thailand</button>
+          <button type="button" class="btn btn-dark m-1" id="turkey">Turkey</button>
+          <button type="button" class="btn btn-dark m-1" id="uAE">UAE</button>
+          <button type="button" class="btn btn-dark m-1" id="uK">UK</button>
+          <button type="button" class="btn btn-dark m-1" id="uSA">USA</button>
+          <button type="button" class="btn btn-dark m-1" id="vaticanCity">Vatican City</button>
+        </div>
+      </div>
+
+      <div id="map" style="width: 90vw; height: 70vh" class="m-1"></div>
+
+      <script>
+        mapboxgl.accessToken =
+          "pk.eyJ1IjoiY2FwdGFpbmZsdWZmIiwiYSI6ImNrbm05bW9obDBva3Qyb20wZHV2NGUwbHQifQ.jkQHN977Ux0xoNwTLaNHvw";
+
+        // Country coordinates
+        const albaniaCoordinates = [20.168331, 41.153332]
+        const belizeCoordinates = [-88.49765, 17.189877]
+        const canadaCoordinates = [-106.346771, 56.130366]
+        const costaRicaCoordinates = [-83.753428, 9.748917]
+        const cyprusCoordinates = [33.429859, 35.126413]
+        const dRCCoordinates = [21.758664, -4.038333]
+        const ecuadorCoordinates = [-78.183406, -1.831239]
+        const egyptCoordinates = [30.802498, 26.820553]
+        const elSalvadorCoordinates = [-88.89653, 13.794185]
+        const estoniaCoordinates = [25.013607, 58.595272]
+        const findlandCoordinates = [25.748151, 61.92411]
+        const franceCoordinates = [2.213749, 46.227638]
+        const germanyCoordinates = [10.451526, 51.165691]
+        const greeceCoordinates = [21.824312, 39.074208]
+        const guatemalaCoordinates = [-90.230759, 15.783471]
+        const haitiCoordinates = [-72.285215, 18.971187]
+        const hondurasCoordinates = [-86.241905, 15.199999]
+        const indiaCoordinates = [78.96288, 20.593684]
+        const irelandCoordinates = [-8.24389, 53.41291]
+        const israelCoordinates = [34.851612, 31.046051]
+        const italyCoordinates = [12.56738, 41.87194]
+        const japanCoordinates = [138.252924, 36.204824]
+        const jordanCoordinates = [36.238414, 30.585164]
+        const latviaCoordinates = [24.603189, 56.879635]
+        const mexicoCoordinates = [-102.552784, 23.634501]
+        const moroccoCoordinates = [-7.09262, 31.791702]
+        const netherlandsCoordinates = [5.291266, 52.132633]
+        const nicaraguaCoordinates = [-85.207229, 12.865416]
+        const panamaCoordinates = [-80.782127, 8.537981]
+        const philippinesCoordinates = [121.774017, 12.879721]
+        const polandCoordinates = [19.145136, 51.919438]
+        const southKoreaCoordinates = [127.766922, 35.907757]
+        const spainCoordinates = [-3.74922, 40.463667]
+        const taiwanCoordinates = [120.960515, 23.69781]
+        const thailandCoordinates = [100.992541, 15.870032]
+        const turkeyCoordinates = [35.243322, 38.963745]
+        const uAECoordinates = [53.847818, 23.424076]
+        const uKCoordinates = [-3.435973, 55.378051]
+        const uSACoordinates = [-95.712891, 37.09024]
+        const vaticanCityCoordinates = [12.453389, 41.902916]
+
+        // Geojson of country coordinates
+        const geojson = {
+          type: "FeatureCollection",
+          features: [
+            {
+              type: "Feature",
+              properties: {
+                iconSize: [40, 40],
+              },
+              geometry: {
+                type: "Point",
+                coordinates: albaniaCoordinates,
+              },
+            },
+            {
+              type: "Feature",
+              properties: {
+                iconSize: [40, 40],
+              },
+              geometry: {
+                type: "Point",
+                coordinates: belizeCoordinates,
+              },
+            },
+            {
+              type: "Feature",
+              properties: {
+                iconSize: [40, 40],
+              },
+              geometry: {
+                type: "Point",
+                coordinates: canadaCoordinates,
+              },
+            },
+          ],
+        };
+
+        const map = new mapboxgl.Map({
+          container: "map",
+          style: "mapbox://styles/mapbox/streets-v12", // style URL
+          center: [-89.4926, 40.5275], // starting position [lng, lat]
+          zoom: 1.6, // starting zoom
+        });
+
+        // Add markers to the map.
+        for (const marker of geojson.features) {
+          // Create a DOM element for each marker.
+          const el = document.createElement("div");
+          const width = marker.properties.iconSize[0];
+          const height = marker.properties.iconSize[1];
+          el.className = "marker";
+          el.style.width = `${width}px`;
+          el.style.height = `${height}px`;
+          el.style.backgroundSize = "100%";
+
+          // Add markers to the map.
+          new mapboxgl.Marker(el)
+            .setLngLat(marker.geometry.coordinates)
+            .addTo(map);
+        }
+
+        // Click buttons to fly to country location
+        document.getElementById("albania").addEventListener("click", () => {
+          map.flyTo({
+            ...{
+              center: albaniaCoordinates,
+              zoom: 6.5,
+            },
+            duration: 8000,
+            essential: true,
+          });
+        });
+        document.getElementById("belize").addEventListener("click", () => {
+          map.flyTo({
+            ...{
+              center: belizeCoordinates,
+              zoom: 7,
+            },
+            duration: 8000,
+            essential: true,
+          });
+        });
+        document.getElementById("canada").addEventListener("click", () => {
+          map.flyTo({
+            ...{
+              center: canadaCoordinates,
+              zoom: 3.5,
+            },
+            duration: 8000,
+            essential: true,
+          });
+        });
+      </script>
+
     </div>
 
+    
     <div class="m-4"></div>
 
     <!-- Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
